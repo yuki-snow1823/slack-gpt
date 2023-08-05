@@ -1,7 +1,7 @@
 import { ask, getUserList } from './utils'
 import { ChatCompletionRequestMessageRoleEnum } from 'openai'
 
-export const appMention: any = async ({ event, client, say }) => {
+export const appMention: any = async ({ event, client, say, logger }) => {
   const channelId = event.channel
   const botUserId = process.env.BOT_USER_ID
   try {
@@ -44,6 +44,8 @@ export const appMention: any = async ({ event, client, say }) => {
         content: (message.text || '').replace(`<@${botUserId}>`, '')
       }
     }).filter(nonNullable)
+
+    logger.info('query keyword:', threadMessages)
 
     const gptAnswerText = await ask(Object.assign(preContext, threadMessages))
 
