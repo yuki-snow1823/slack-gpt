@@ -10,6 +10,9 @@ export const appMention: any = async ({ event, client, say, logger }) => {
       ts: event.thread_ts || event.ts
     })
 
+    logger.info('replies:', replies)
+
+
     if (!replies.messages) {
       await say(
         'スレッドが見つかりませんでした'
@@ -31,6 +34,8 @@ export const appMention: any = async ({ event, client, say, logger }) => {
 
     const nonNullable = <T>(value: T): value is NonNullable<T> => value != null
     const threadMessages = replies.messages.map((message) => {
+      logger.info('message:', message)
+
       if (message.text.includes(waitingMessage)) {
         return null
       }
