@@ -45,7 +45,7 @@ export const appMention: any = async ({ event, client, say, logger }) => {
       }
     }).filter(nonNullable)
 
-    logger.info('query keyword:', threadMessages)
+    logger.info('threadMessages:', threadMessages)
 
     const gptAnswerText = await ask(Object.assign(preContext, threadMessages))
 
